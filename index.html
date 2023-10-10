@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- <div class="container">
+       <div class="row">
+          <div class="col">
+             <div class="box">name of item</div>
+             <div class="box">date of buying</div>
+             <div class="box">amount</div>
+             <div class="box">remark</div>
+          </div>
+    </div> -->
+    <div class="container-fluid mt-3">
+    <form action="" id="itemForm">
+
+        <label for="itemName" class="form-label">Item Name<sup>*</sup></label>
+
+        <div class="input-group">
+            <div class="input-group-text">&#10077;</div>
+        <input type="text" id="itemName" name="itemName" class="form-control form-check-inline" required>
+    </div>
+
+        <label for="itemAmount" class="form-label ">Purchase Amount<sup>*</sup></label>
+        <div class="input-group">
+        <div class="input-group-text">&#128176</div>
+        <input type="number" id="itemAmount" name="itemAmount" class="form-control form-check-inline" required>
+    </div>
+
+        <label for="itemDate" class="form-label form-check-inline">Purchase Date<sup>*</sup></label>
+        <div class="input-group">
+            <div class="input-group-text">&#128197</div>
+        <input type="date" id="itemDate" name="itemDate" class="form-control form-check-inline" required>
+    </div>
+
+        <label for="itemRemark" class="form-label">Remark</label>
+        <div class="input-group">
+            <div class="input-group-text">&#10067</div>
+            <input type="text" id="itemRemark"  class="form-control form-check-inline" name="itemRemark">
+        </div><br>
+        
+        <input type="submit" value="Add Item" id="itemAdd" class="form-control form-check-inline btn btn-primary">
+    </form>
+
+    <div class="itemStore card text-bg-lite bg-opacity-85  border-3  rounded-10 mx-auto mt-4 "></div>
+</div>
+
+
+    
+
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="./script.js"></script>
+</body>
+</html>
