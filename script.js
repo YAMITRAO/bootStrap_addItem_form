@@ -9,35 +9,41 @@ let itemForm = document.querySelector("#itemForm");
 //select where data will store
 let itemStore = document.querySelector(".itemStore");
 
-// create local Data base 
-let data = [
-    // {
-    //     name: "Car insurence",
-    //     amount : "1200",
-    //     date : "10-10-2023",
-    //     remark : "none"
-    // },
-    // {
-    //     name: "Bike insurence",
-    //     amount : "100",
-    //     date : "10-10-2023",
-    //     remark : "bike insurence "
-    // }
-]
 
-if( localStorage.getItem("data") != null){ 
-    data = JSON.parse(localStorage.getItem("data"))
+let data ;
+getFromCloud();
+
+
+function updateToCloud(val){
+    axios.post("https://crudcrud.com/api/b63b82c51bfa40bdad3114e81a95e88e/myData", val)
+    .then(res => {
+        console.log(res);
+        data;
+        getFromCloud();
+    })
+    .catch(err => console.log(err));
 }
-else{
-    localStorage.setItem("data", JSON.stringify(data));
+function getFromCloud(){
+   let x = axios.get("https://crudcrud.com/api/b63b82c51bfa40bdad3114e81a95e88e/myData")
+    .then(res => {
+        data=res.data;
+        console.log(data);
+        console.log("res data is" , res.data[0]);
+        enterToList(data);
+         return res.data;
+    })
+    .catch(err => console.log(err));
 }
 
-data = JSON.parse(localStorage.getItem("data"))
+// if( localStorage.getItem("data") != null){ 
+//     data = JSON.parse(localStorage.getItem("data"));
+  
+// }
+// else{
+//     localStorage.setItem("data", JSON.stringify(data));
+// }
 
-enterToList(data);
-
-
-
+// data = JSON.parse(localStorage.getItem("data"))
 //add onSubmit at form 
 itemForm.addEventListener('submit', onSubmit);
 
@@ -52,12 +58,13 @@ function onSubmit(event){
         remark: itemRemark.value,
     }
 
-    data.push(temp);
+    updateToCloud(temp);
+    // data.push(temp);
     itemStore.innerHTML = "";
-    localStorage.setItem("data", JSON.stringify(data));
+    // localStorage.setItem("data", JSON.stringify(data));
 
     //function to create div and enter the input data to itemList
-    enterToList(data);
+    // enterToList(data);
 
     //remove input values form the input 
     itemName.value = "";
@@ -68,6 +75,7 @@ function onSubmit(event){
 }
 
 function enterToList(data){
+    console.log(data);
      //create a div >> h2 (for name) >> h3 (for date and amount) >> p (for description);
      for(let i = data.length-1; i >= 0 ; i--){
         
