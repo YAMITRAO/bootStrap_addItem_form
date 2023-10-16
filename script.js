@@ -9,8 +9,13 @@ let itemForm = document.querySelector("#itemForm");
 //select where data will store
 let itemStore = document.querySelector(".itemStore");
 
+let dummy = [ {"_id":"652caf972e0fb203e853f17b","name":"Car insurence","amount":"1200","date":"10-10-2023","remark":"none"},{"_id":"652cb5c12e0fb203e853f180","name":"Bike Insu","amount":"100","date":"11-10-2023","remark":"This is bike insurance"},{"_id":"652cb6732e0fb203e853f181","name":"Home Insurance","amount":"1500","date":"2023-10-01","remark":"This is my home insurance"},{"_id":"652cb8a72e0fb203e853f183","name":"Books","amount":"10","date":"2-10-2023","remark":"Books for GATE"},{"_id":"652cb8d82e0fb203e853f186","name":"Laptop","amount":"1200","date":"2022-01-11","remark":"this is my macbook"},{"_id":"652cb9312e0fb203e853f187","name":"My bag","amount":"100","date":"2023-02-20","remark":"this is my american tourister"}]
+
+// console.log(JSON.parse(JSON.stringify(dummy)));
+// let data = JSON.parse(JSON.stringify(dummy));
 
 let data ;
+// enterToList(data);
 getFromCloud();
 
 
@@ -26,11 +31,22 @@ function updateToCloud(val){
 function getFromCloud(){
    let x = axios.get("https://crudcrud.com/api/b63b82c51bfa40bdad3114e81a95e88e/myData")
     .then(res => {
+        data;
         data=res.data;
         console.log(data);
-        console.log("res data is" , res.data[0]);
+        // console.log("res data is" , res.data[0]);
         enterToList(data);
          return res.data;
+    })
+    .catch(err => console.log(err));
+}
+
+function deleteFromCloud(id){
+    let x = axios.delete(`https://crudcrud.com/api/b63b82c51bfa40bdad3114e81a95e88e/myData/${id}`)
+    .then(res => {
+        console.log(res);
+        data;
+        getFromCloud();
     })
     .catch(err => console.log(err));
 }
@@ -129,21 +145,31 @@ function onClick(event){
     let tempAmount = event.target.parentElement.querySelector(".itemAmountH3");
     let tempDate = event.target.parentElement.querySelector(".itemDateH3");
     let tempRemark = event.target.parentElement.querySelector(".itemRemarkP");
-    console.log(event.target.parentElement);
+    // console.log(event.target.parentElement);
     event.target.parentElement.remove();
     console.log(tempName.innerText);
-    console.log(tempAmount.innerText);
-    console.log(tempDate.innerText);
-    console.log(tempRemark.innerText);
+    // console.log(tempAmount.innerText);
+    // console.log(tempDate.innerText);
+    // console.log(tempRemark.innerText);
+
+    for(let i = 0; i< data.length; i++){
+        console.log(data[i]);
+        if(data[i].name == tempName.innerText && data[i].amount == tempAmount.innerText && data[i].remark == tempRemark.innerText && data[i].date == tempDate.innerText ){
+            // console.log("value is found ", tempName.innerText);
+            // console.log(data[i]._id);
+            deleteFromCloud(data[i]._id);
+            return;
+        }
+    }
     
 
-    let tempData = data.filter( (item) => {
-        console.log(item);
-        return  item.name != tempName.innerText ;
-    });
-    console.log(tempData);
-    data = tempData;
-    localStorage.setItem("data", JSON.stringify(tempData));
+    // let tempData = data.filter( (item) => {
+    //     console.log(item);
+    //     return  item.name != tempName.innerText ;
+    // });
+    // console.log(tempData);
+    // data = tempData;
+    // localStorage.setItem("data", JSON.stringify(tempData));
 }
 
 
